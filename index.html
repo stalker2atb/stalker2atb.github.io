@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>S.T.A.L.K.E.R. 2 x ATB Archive - HUB</title>
+    <style>
+        :root {
+            --bg-color: #0e0e0e;
+            --accent: #f36c1c;
+            --card-bg: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+            margin-bottom: 50px;
+        }
+
+        /* Сітка галереї */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Стиль картки */
+        .card-item {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            /* Плавність анімації */
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        box-shadow 0.3s ease, 
+                        border-color 0.3s ease;
+        }
+
+        /* Твоя "тактильна" анімація */
+        .card-item:hover {
+            transform: translateY(-12px); /* Зміщення вгору */
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px rgba(243, 108, 28, 0.2);
+        }
+
+        .card-item img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #222;
+        }
+
+        .card-name {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #c9c3a3; /* Твій піщаний колір */
+        }
+
+        .card-id {
+            display: block;
+            font-size: 0.6rem;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Архів об'єктів НДІЧАЗ</h1>
+    
+    <div class="gallery" id="gallery">
+        </div>
+
+    <script>
+        async function loadGallery() {
+            try {
+                const response = await fetch('cards.json');
+                const cards = await response.json();
+                const container = document.getElementById('gallery');
+
+                cards.forEach(card => {
+                    // Створюємо елемент посилання на папку карти
+                    const anchor = document.createElement('a');
+                    anchor.href = `${card.id}/index.html`;
+                    anchor.className = 'card-item';
+
+                    anchor.innerHTML = `
+                        
+                        <img src="${card.id}/ob.png" alt="${card.name}" onerror="this.src='https://via.placeholder.com/150x210?text=NO+IMAGE'">
+                        <div class="card-name">${card.name}</div>
+                    `;
+
+                    container.appendChild(anchor);
+                });
+            } catch (e) {
+                console.error("Помилка завантаження конфігу:", e);
+            }
+        }
+
+        loadGallery();
+    </script>
+</body>
+</html>
