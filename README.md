@@ -1,6 +1,6 @@
 # S.T.A.L.K.E.R 2 x ATB - Архів карток
 ## В стадії наповнення на 19.04.2026
-Переглядач: [https://stalker2atb.github.io//](http:/https://stalker2atb.github.io//)
+Переглядач: [https://stalker2atb.github.io//](https://stalker2atb.github.io//)
 
 Сайт зроблений для збереження карток та їх вмісту, зокрема аудіо та субтитрів. 
 ![](lg.jpg)
