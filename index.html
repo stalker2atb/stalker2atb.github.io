@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>S.T.A.L.K.E.R. 2 x ATB Archive - HUB</title>
+    <title>S.T.A.L.K.E.R. 2 x ATB Archive</title>
     <style>
         :root {
             --bg-color: #0e0e0e;
@@ -28,7 +28,7 @@
             margin-bottom: 50px;
         }
 
-        /* Сітка галереї */
+       
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -46,13 +46,13 @@
             text-decoration: none;
             color: white;
             text-align: center;
-            /* Плавність анімації */
+    
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
                         box-shadow 0.3s ease, 
                         border-color 0.3s ease;
         }
 
-        /* Твоя "тактильна" анімація */
+        
         .card-item:hover {
             transform: translateY(-12px); /* Зміщення вгору */
             border-color: var(--accent);
@@ -70,7 +70,7 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #c9c3a3; /* Твій піщаний колір */
+            color: #c9c3a3; 
         }
 
         .card-id {
@@ -83,7 +83,7 @@
 </head>
 <body>
 
-    <h1>Архів об'єктів НДІЧАЗ</h1>
+    <h1>S.T.A.L.K.E.R 2 x ATB - Архів карток</h1>
     
     <div class="gallery" id="gallery">
         </div>
@@ -96,7 +96,7 @@
                 const container = document.getElementById('gallery');
 
                 cards.forEach(card => {
-                    // Створюємо елемент посилання на папку карти
+          
                     const anchor = document.createElement('a');
                     anchor.href = `${card.id}/index.html`;
                     anchor.className = 'card-item';
@@ -110,7 +110,7 @@
                     container.appendChild(anchor);
                 });
             } catch (e) {
-                console.error("Помилка завантаження конфігу:", e);
+                console.error("Confg err:", e);
             }
         }
 
