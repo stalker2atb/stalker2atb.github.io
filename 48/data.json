@@ -1,0 +1,33 @@
+{
+  "cards": [
+    {
+      "id": 48,
+      "card_name": "Дивна квітка",
+      "image_file": "P1_Image_unique_id.png",
+      "audio_files": [
+        {
+          "title": "Архів НДІЧАЗ, секція СЧ 34-42",
+          "file": "NDI48.ogg",
+          "subtitle": "Привіт, Сталкере! Ласкаво просимо до Зони."
+        },
+        {
+          "title": "Запис 2",
+          "file": "P1_A2_another_id.mp3",
+          "subtitle": "Будь обережний біля аномалій, хлопець."
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "card_name": "Картка №48: Моноліт",
+      "image_file": "P48_Image_uuid.png",
+      "audio_files": [
+        {
+          "title": "Проповідь",
+          "file": "P48_Audio1_71ac31a9.ogg",
+          "subtitle": "Ми не чуємо твій голос, Моноліте..."
+        }
+      ]
+    }
+  ]
+}
