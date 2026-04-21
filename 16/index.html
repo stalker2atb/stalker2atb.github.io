@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.T.A.L.K.E.R. 2 Archive - Card View</title>
+    <style>
+        :root {
+            --bg-color: #0e0e0e;
+            --card-bg: #1a1a1a;
+            --accent: #f36c1c;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --border: #2a2a2a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* 1. Велика сіра рамка, куди входить ВСЕ */
+        .main-container {
+            width: 90%;
+            max-width: 420px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            text-align: center;
+        }
+
+        .card-image-box {
+            margin-bottom: 20px;
+        }
+
+        .main-card-img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        h1 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 20px 0;
+            color: var(--accent);
+        }
+
+        .selector-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .voice-btn {
+            background: #252525;
+            border: 1px solid #333;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .voice-btn.active {
+            border-color: var(--accent);
+            background: rgba(243, 108, 28, 0.1);
+            color: var(--accent);
+        }
+
+        audio {
+            width: 100%;
+            height: 35px;
+            filter: invert(90%) hue-rotate(180deg) brightness(1.2);
+            margin-bottom: 20px;
+        }
+
+    .subtitles-console {
+    height: 120px;
+    overflow-y: auto;
+    background: #000000;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px;
+    
+    /* Шрифт: Roboto Condensed або Arial Narrow дадуть той самий ефект вузьких букв */
+    font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+    font-size: 1rem;
+    line-height: 1.3; /* Зменшено інтервал між рядками */
+    
+    letter-spacing: 0.6px; /* Майже без розрідження */
+    font-weight: 500;
+    
+    /* Колір: той самий "піщаний" відтінок зі скріншота */
+    color: #c9c3a3; 
+    
+    text-align: left;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) #000;
+}
+    
+    /* Стилізація скролбару */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) #000;
+}
+
+        /* Стилізація скроллбару для Chrome */
+        .subtitles-console::-webkit-scrollbar {
+            width: 5px;
+        }
+        .subtitles-console::-webkit-scrollbar-thumb {
+            background-color: var(--accent);
+            border-radius: 10px;
+        }
+
+        /* Стиль для виділеного тексту */
+        .subtitles-console b {
+            color: #fff;
+            text-shadow: 0 0 5px var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="card-image-box">
+        <img src="card.webp" alt="Stalker Card" class="main-card-img">
+    </div>
+
+    <h1 id="cardName">Назва Картки</h1>
+
+    
+    <div class="btn-group">
+        <button id="btn1" class="voice-btn" onclick="selectAudio(1)">Архів НДІЧАЗ, справа ТЧ 66-64</button>
+        <button id="btn2" class="voice-btn" onclick="selectAudio(2)">Матеріали КПК 16</button>
+    </div>
+
+    <audio id="player" controls></audio>
+
+    <div class="subtitles-console" id="subs"></div>
+</div>
+
+<script>
+    // 5. Дані з підтримкою HTML-тегів
+    const cardData = {
+        name: "Стрілець",
+        audio1: {
+            file: "NDI16.ogg",
+            text: "<strong>Далін:</strong> Архів НДІЧАЗ, витяг із особової справи ТЧ 66-64<br><br>Позивний: «Стрілець» (також був відомий як «Мічений»)<br>Вік: 44<br>Фракція: Нейтрали<br>Статус: сталкер<br>Досьє відкрито: 10.09.2008<br><br>Біографія<br>У серпні 2008 року Стрілець, тоді — військовий — був направлений у Зону, де став жертвою зради корумпованого командира і був залишений напризволяще. Його врятував сталкер на прізвисько Привид. Після цього інциденту Стрілець зав’язав із військовим минулим та сформував власну групу сталкерів, до якої згодом приєдналися Клик і Доктор.<br>Влітку 2011 року група Стрільця проникла всередину Саркофагу ЧАЕС і спричинила Надвикид. У серпні того ж року Стрілець зник безвісти під час чергової спроби прориву до Саркофагу. Тоді ж він був помилково закодований С-Свідомістю як агент програми S.T.A.L.K.E.R. із завданням ліквідувати самого себе. Був закинутий назад у Зону з амнезією.<br>У травні 2012 року Стрілець ліквідував бандитського ватажка Борова. Згодом відключив установку «Випалювач мізків» і знищив С-Свідомість, що кардинально змінило баланс сил у Зоні.<br>У серпні 2012 року Стрілець допоміг майору Дегтярьову під час евакуації військових після провалу операції «Фарватер».<br>2013 рік — Стрілець долучився до заснування НДІЧАЗ і виконував функції головного наукового консультанта. Згодом залишив Інститут, здійснивши диверсію та заявив, що керівництво Інституту прагне контролювати Зону, а не досліджувати її.<br><br>Психологічний профіль<br>Характеризується винятковою адаптивністю та високою стресостійкістю, що дозволяє йому діяти автономно в умовах постійної смертельної загрози. Його воля практично не піддається зовнішньому тиску, а здатність знаходити вихід із критичних ситуацій межує з інстинктивною реакцією. Водночас він демонструє емоційну відстороненість у спілкуванні, схильність до одержимості власною метою та глибоку підозрілість до будь-яких структур влади або ієрархій.<br><br>Ризики для Наглядради<br>Стрілець становить сукупність стратегічних ризиків. Його поведінка є непередбачуваною, оскільки він не визнає формального підпорядкування і діє виключно відповідно до власного бачення ситуації. У разі розбіжності цілей він здатний без вагань виступити прот. Його глибокі практичні знання про Зону перевищують теоретичні напрацювання більшості фахівців НДІЧАЗ, і в разі свідомого саботажу або витоку інформації ці знання можуть бути використані ворожими фракціями. З огляду на його попередні дії, що вже призводили до масштабних і незворотних змін у Зоні, подальше втручання Стрільця може мати глобальні та важко прогнозовані наслідки. За даними Агати, Стрілець готує чергову диверсію проти сил Наглядради. За неможливості його повторного вербування, підлягає ліквідації або нейтралізації."},
+        audio2: {
+            file: "KPK16.ogg",
+            text: "<strong>Далін:</strong> КПК № 16. Зі щоденника Стрільця<br><br><strong>Стрілець:</strong> Зона більше не здається мені раковою пухлиною на тілі планети. Колись я був упевнений, що її потрібно знищити, випалити до основи. Тепер я розумію, що це було надто просте пояснення складного явища. Зона не є вироком. Вона — реакція, форма відповіді Всесвіту на втручання людини. Її неможливо звести до категорій «добро» чи «зло».<br><br>Я розумію Зону краще, ніж ті, хто намагається описати її формулами та звітами. Вона живе за власною логікою, де аномалії, викиди й спотворені форми життя не є помилками, а елементами нової рівноваги. Попри лицемірство Кайманова, в одному я з ним точно згоден: мутанти — не збій системи, і не ворог за визначенням. Вони — частина фауни Зони, пристосованої до середовища, яке саме по собі вже не належить звичному світові. Їхнє знищення означало б повторення тієї ж помилки — спроби нав’язати порядок там, де він уже сформувався інакше.<br>Зона заслуговує на спокій. Не на контроль, не на експерименти, й не на чергові «програми порятунку». Але тільки я за стільки років у Зоні зрозумів, що їй справді треба!"}
+    };
+
+    const player = document.getElementById('player');
+    const subs = document.getElementById('subs');
+
+    // 2 & 3. Функція вибору БЕЗ автоматичного програвання
+    function selectAudio(index) {
+        // Оновлюємо кнопки
+        document.getElementById('btn1').classList.toggle('active', index === 1);
+        document.getElementById('btn2').classList.toggle('active', index === 2);
+
+        const current = index === 1 ? cardData.audio1 : cardData.audio2;
+        
+        // Оновлюємо джерело та текст
+        player.src = current.file;
+        subs.innerHTML = current.text; // innerHTML замість innerText для обробки <b>
+        
+        // Скролимо консоль на початок при зміні
+        subs.scrollTop = 0;
+    }
+
+    // Встановлюємо початковий стан при завантаженні (Запис 1)
+    document.getElementById('cardName').innerText = cardData.name;
+    selectAudio(1);
+</script>
+
+</body>
+</html>
