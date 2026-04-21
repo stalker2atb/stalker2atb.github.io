@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.T.A.L.K.E.R. 2 Archive - Card View</title>
+    <style>
+        :root {
+            --bg-color: #0e0e0e;
+            --card-bg: #1a1a1a;
+            --accent: #f36c1c;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --border: #2a2a2a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* 1. Велика сіра рамка, куди входить ВСЕ */
+        .main-container {
+            width: 90%;
+            max-width: 420px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            text-align: center;
+        }
+
+        .card-image-box {
+            margin-bottom: 20px;
+        }
+
+        .main-card-img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        h1 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 20px 0;
+            color: var(--accent);
+        }
+
+        .selector-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .voice-btn {
+            background: #252525;
+            border: 1px solid #333;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .voice-btn.active {
+            border-color: var(--accent);
+            background: rgba(243, 108, 28, 0.1);
+            color: var(--accent);
+        }
+
+        audio {
+            width: 100%;
+            height: 35px;
+            filter: invert(90%) hue-rotate(180deg) brightness(1.2);
+            margin-bottom: 20px;
+        }
+
+    .subtitles-console {
+    height: 120px;
+    overflow-y: auto;
+    background: #000000;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px;
+    
+    /* Шрифт: Roboto Condensed або Arial Narrow дадуть той самий ефект вузьких букв */
+    font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+    font-size: 1rem;
+    line-height: 1.3; /* Зменшено інтервал між рядками */
+    
+    letter-spacing: 0.6px; /* Майже без розрідження */
+    font-weight: 500;
+    
+    /* Колір: той самий "піщаний" відтінок зі скріншота */
+    color: #c9c3a3; 
+    
+    text-align: left;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) #000;
+}
+    
+    /* Стилізація скролбару */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) #000;
+}
+
+        /* Стилізація скроллбару для Chrome */
+        .subtitles-console::-webkit-scrollbar {
+            width: 5px;
+        }
+        .subtitles-console::-webkit-scrollbar-thumb {
+            background-color: var(--accent);
+            border-radius: 10px;
+        }
+
+        /* Стиль для виділеного тексту */
+        .subtitles-console b {
+            color: #fff;
+            text-shadow: 0 0 5px var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="card-image-box">
+        <img src="card.webp" alt="Stalker Card" class="main-card-img">
+    </div>
+
+    <h1 id="cardName">Назва Картки</h1>
+
+    
+    <div class="btn-group">
+        <button id="btn1" class="voice-btn" onclick="selectAudio(1)">Архів НДІЧАЗ, справа СЧ 64-76</button>
+        <button id="btn2" class="voice-btn" onclick="selectAudio(2)">Матеріали КПК 10</button>
+    </div>
+
+    <audio id="player" controls></audio>
+
+    <div class="subtitles-console" id="subs"></div>
+</div>
+
+<script>
+    // 5. Дані з підтримкою HTML-тегів
+    const cardData = {
+        name: "Ріхтер",
+        audio1: {
+                 file: "NDI10.ogg",
+                 text: "<strong>Далін:</strong> Архів НДІЧАЗ, витяг із особової справи СЧ 64-76<br><br>Позивний: «Ріхтер»<br>Справжнє ім’я: невідоме<br>Вік: 28<br>Фракція: Нейтрали<br>Статус: вільний провідник<br>Досьє відкрито: 26.09.2021<br><br>Походження та ранні роки<br>Ріхтер виріс у дитячому будинку. У цей період у нього сформувався стійкий інтерес до Чорнобильської Зони як до символу свободи та альтернативи контрольованому існуванню. У шістнадцятирічному віці він самовільно покинув сиротинець і нелегально проник у Зону.<br><br>Початковий досвід у Зоні<br>Один із ранніх походів завершився потраплянням у електричну аномалію. Ріхтер вижив, однак отримав характерний шрам уздовж скроні у вигляді розгалуженого сліду блискавки. Інцидент не зменшив його мотивації, а лише закріпив намір набути достатнього досвіду й підготовки.<br><br>Навчання та зв’язки<br>Був учнем Провідника, легендарного сталкера, відомого співпрацею зі Стрільцем. Після загибелі наставника підтримував особисті контакти як зі Стрільцем, так і зі Шрамом. За сприяння останнього був введений до угруповання Іскра, однак формального членства не прийняв, залишившись вільним сталкером.<br><br>Подальша діяльність<br>На прохання Стрільця виконував обов’язки провідника Малою Зоною. Брав участь у зборі та передачі інформації щодо сканерів. Усвідомлює статус Стрільця як однієї з найбільш розшукуваних осіб у Зоні, тому ретельно приховує факт їхнього знайомства.<br><br>Травмуючий досвід<br>Загибель нейтральних сталкерів Баржі та Жартівника під час переходу через аномальну ділянку стала серйозним психологічним переломом для Ріхтера. Подія підірвала його впевненість у власному розумінні Зони та сформувала стійке почуття провини, що згодом трансформувалося у готовність допомагати іншим, навіть на шкоду особистій вигоді.<br><br>Світогляд та переконання<br>Ріхтер поділяє ідею сталкерської вольниці та концепцію вільної Зони. Відкрито вороже ставиться до Варти, визнаючи її силу, але не авторитет. Діє прагматично, уникає невиправданого ризику. Вбивство розглядає виключно як крайній захід, надаючи перевагу мирному врегулюванню конфліктів.<br><br>Інтерес чи небезпека для Наглядради<br>Ріхтер становить оперативний інтерес помірного рівня. Як досвідчений провідник і носій практичних знань про Малу Зону може бути корисним джерелом інформації та потенційним позаштатним агентом. Водночас його неформальні зв’язки зі Стрільцем і Шрамом, а також виражена нелояльність до структур контролю Зони створюють потенційний ризик витоку даних та неконтрольованого втручання в дослідницьку діяльність. Рекомендується приховане спостереження, без прямого тиску, з можливістю точкового залучення через взаємовигідні домовленості."},
+        audio2: {
+            file: "KPK10.ogg",
+            text: "<strong>Далін:</strong> Матеріали КПК № 10. Вилучено у невідомого сталкера<br><br><strong>Сталкер:</strong> Якось з Ріхтером прорвалися до Прип’яті. Місто, як завжди, мовчало, тільки вітер скрипів розбитими вікнами. Вже трохи напідпитку з хлопцями зайшли в чергову багатоповерхівку без надії щось знайти. Стандартний набір: порожні кімнати, облуплені стіни, сліди давнього життя. У одній із квартир Ріхтер раптом зупинився і кивнув на стару тумбочку. Між пожовклими газетами лежали старі касети. Звичайні, потерті, з нерозбірливими підписами від руки. Я навіть не одразу повірив, що таке тут могло зберегтися. Ми знайшли старий плеєр, у когось у рюкзаку були батарейки. Коли з навушників полився тихий, трохи хриплий спів, Прип’ять ніби відступила. На кілька хвилин Зона перестала бути Зоною. Спочатку Ріхтер мовчав, а потім почав танцювати. Більше я його без того плеєра не зустрічав. Ця музика з мертвого міста стала частиною його життя."}
+    };
+
+    const player = document.getElementById('player');
+    const subs = document.getElementById('subs');
+
+    // 2 & 3. Функція вибору БЕЗ автоматичного програвання
+    function selectAudio(index) {
+        // Оновлюємо кнопки
+        document.getElementById('btn1').classList.toggle('active', index === 1);
+        document.getElementById('btn2').classList.toggle('active', index === 2);
+
+        const current = index === 1 ? cardData.audio1 : cardData.audio2;
+        
+        // Оновлюємо джерело та текст
+        player.src = current.file;
+        subs.innerHTML = current.text; // innerHTML замість innerText для обробки <b>
+        
+        // Скролимо консоль на початок при зміні
+        subs.scrollTop = 0;
+    }
+
+    // Встановлюємо початковий стан при завантаженні (Запис 1)
+    document.getElementById('cardName').innerText = cardData.name;
+    selectAudio(1);
+</script>
+
+</body>
+</html>
