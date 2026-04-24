@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.T.A.L.K.E.R. 2 Archive - Card View</title>
+    <style>
+        :root {
+            --bg-color: #0e0e0e;
+            --card-bg: #1a1a1a;
+            --accent: #f36c1c;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --border: #2a2a2a;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* 1. Велика сіра рамка, куди входить ВСЕ */
+        .main-container {
+            width: 90%;
+            max-width: 420px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            text-align: center;
+        }
+
+        .card-image-box {
+            margin-bottom: 20px;
+        }
+
+        .main-card-img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        h1 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 20px 0;
+            color: var(--accent);
+        }
+
+        .selector-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .voice-btn {
+            background: #252525;
+            border: 1px solid #333;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .voice-btn.active {
+            border-color: var(--accent);
+            background: rgba(243, 108, 28, 0.1);
+            color: var(--accent);
+        }
+
+        audio {
+            width: 100%;
+            height: 35px;
+            filter: invert(90%) hue-rotate(180deg) brightness(1.2);
+            margin-bottom: 20px;
+        }
+
+    .subtitles-console {
+    height: 120px;
+    overflow-y: auto;
+    background: #000000;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px;
+    
+    /* Шрифт: Roboto Condensed або Arial Narrow дадуть той самий ефект вузьких букв */
+    font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+    font-size: 1rem;
+    line-height: 1.3; /* Зменшено інтервал між рядками */
+    
+    letter-spacing: 0.6px; /* Майже без розрідження */
+    font-weight: 500;
+    
+    /* Колір: той самий "піщаний" відтінок зі скріншота */
+    color: #c9c3a3; 
+    
+    text-align: left;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) #000;
+}
+    
+    /* Стилізація скролбару */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) #000;
+}
+
+        /* Стилізація скроллбару для Chrome */
+        .subtitles-console::-webkit-scrollbar {
+            width: 5px;
+        }
+        .subtitles-console::-webkit-scrollbar-thumb {
+            background-color: var(--accent);
+            border-radius: 10px;
+        }
+
+        /* Стиль для виділеного тексту */
+        .subtitles-console b {
+            color: #fff;
+            text-shadow: 0 0 5px var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="card-image-box">
+        <img src="card.webp" alt="Stalker Card" class="main-card-img">
+    </div>
+
+    <h1 id="cardName">Назва Картки</h1>
+
+    
+    <div class="btn-group">
+        <button id="btn1" class="voice-btn" onclick="selectAudio(1)">Архів НДІЧАЗ, секція ЧН 11-08</button>
+        <button id="btn2" class="voice-btn" onclick="selectAudio(2)">Матеріали КПК 4</button>
+    </div>
+
+    <audio id="player" controls></audio>
+
+    <div class="subtitles-console" id="subs"></div>
+</div>
+
+<script>
+    // 5. Дані з підтримкою HTML-тегів
+    const cardData = {
+        name: "Рейд Стрільця",
+        audio1: {
+                 file: "NDI5.ogg",
+                 text: "<strong>Далін:</strong> Архів НДІЧАЗ, секція ЧН 11-08<br><br>9 серпня 2011 року відбувся Великий Викид, який був спричинений першим рейдом Стрільця. Викид перекроїв усю Зону: колись недоступні території стали відкритими, одночасно перекривши аномаліями звичні сталкерам дороги. З'явився доступ до Військових складів, Рудого лісу та Лиманська. Усі фракції прагнули першими встановити контроль над новими територіями. Ці події згодом отримали назву «Війна угруповань».<br><br>Одним із фронтів цієї Війни було протистояння сталкерів Кордону на чолі з Панотцем Валеріаном та бандитів Смітника, яких об’єднав бугор на прізвисько Йога. Нейтрали діяли настільки вдало, що змогли захистити себе навіть від спроб СОП захопити контроль над Кордоном.<br><br>Іншим важливим моментом Війни угрупувань стало чергове протистояння Долгу та Волі, у результаті якого бази Долгу були перенесені на завод «Росток», а Воля зайняла Військові склади, вибивши з них СОП. Пізніше генерал Крилов, який тоді командував Долгом, передав НДІ «Агропром» під контроль СОП. Бандити ж закріпилися на колишній базі Волі на фабриці.<br><br>Фінальна битва відбулася у Лиманську за контроль над містом. У спробах вибити звідти Моноліт і закріпитися на локації брали участь бійці Волі, Долгу, найманці та бандити."},        
+		audio2: {
+            file: "KPK5.ogg",
+            text: "<strong>Далін:</strong> Матеріали КПК № 5. Записано в бункері Сидоровича<br><strong>Сидорович:</strong> Я тобі, хлопче, дещо розповім про вплив. Діло було влітку 2011 року. Зона тоді кипіла, кожен тягнув ковдру на себе. Потім це назвуть Війною угрупувань. А я, як завжди, сидів на Кордоні й рахував не тільки хабарі, а й вплив. Бо в Зоні, хто має вплив — той і живе довше.<br><br>І от з’явився він. Панотець Валеріан. Старий лис, хрін з бугра. Весь такий правильний, хіба що строєм не ходить і німбу нема. Дивитися гидко. Ходить, проповіді читає про сталкерське братерство, збирає навколо себе хлопців, ніби пастух отару. А сталкери — народ простий: хто голосніше говорить і вигляд має впевнений, за тим і підуть. Я відразу зрозумів: якщо так піде далі, торгувати буду не я, а він мені дозволятиме.<br><br>Мені не сам Валеріан заважав. Мені заважало, що він порушував і так хиткий баланс сил на Кордоні та в Зоні. Почав домовлятися, миритися... А де мир — там менше стріляють, а де менше стріляють — там менше купують патронів, медикаментів і всього іншого. Бізнес, нічого особистого.<br><br>От і подумав я: а що, як трохи підштовхнути ситуацію? Військові тоді нервові були, глибоко в Зону не лізли, але стріляли без розбору. Я ж не дурень — напряму нічого робити не став. Просто пустив кілька «випадкових» чуток: мовляв, Валеріан в обхід їх буде артефакти з Зони виносити. Холецький тоді залишився б без своєї долі, а військове начальство не любить, коли їх без неофіційного грошового забезпечення лишають.<br><br>Військові, ясна річ, починають рейди, виходять на бандитів, щоб із двох сторін Валеріана до стіни притиснути. Все, як задумано.<br><br>І тут як грім серед ясного неба з Боліт вилазить Шрам. Хто такий, звідки — ніхто толком тоді не знав. Бігає, як навіжений, лізе туди, де нормальна людина й кроку не зробить. І ламає мені всю шахову партію…<br><br>От так завжди: плануєш тихо прибрати фігуру з дошки, а прибігає якийсь черговий притрушений, яких у Зоні хоч греблю гати, і гра починається заново... Зона, що з неї взяти..."}};
+
+    const player = document.getElementById('player');
+    const subs = document.getElementById('subs');
+
+    // 2 & 3. Функція вибору БЕЗ автоматичного програвання
+    function selectAudio(index) {
+        // Оновлюємо кнопки
+        document.getElementById('btn1').classList.toggle('active', index === 1);
+        document.getElementById('btn2').classList.toggle('active', index === 2);
+
+        const current = index === 1 ? cardData.audio1 : cardData.audio2;
+        
+        // Оновлюємо джерело та текст
+        player.src = current.file;
+        subs.innerHTML = current.text; // innerHTML замість innerText для обробки <b>
+        
+        // Скролимо консоль на початок при зміні
+        subs.scrollTop = 0;
+    }
+
+    // Встановлюємо початковий стан при завантаженні (Запис 1)
+    document.getElementById('cardName').innerText = cardData.name;
+    selectAudio(1);
+</script>
+
+</body>
+</html>
